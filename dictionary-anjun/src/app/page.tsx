@@ -1,7 +1,7 @@
 "use client"
 
 import { ThemeProvider } from 'next-themes';
-import { useState } from 'react';
+import { InvalidEvent, useState } from 'react';
 import '../app/globals.css';
 import { Button } from './Button';
 
@@ -26,7 +26,7 @@ export interface ApiData {
 export default function Home() {
 
   const [userInput, setUserInput] = useState('');
-    const [isFieldValid, setIsFieldValid] = useState(true);
+    const [isFieldValid, setIsFieldValid] = useState(false);
     const [apiData, setApiData] = useState<ApiData | null>(null);
 
     const handleUserInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -56,6 +56,10 @@ export default function Home() {
       }
     };
 
+    function handleNewSearchInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
+      event.target.setCustomValidity('Este campo é obrigatório!')
+  }
+
   return (
     <ThemeProvider attribute="class">
       <main className="h-full min-h-screen bg-white dark:bg-black">
@@ -77,8 +81,9 @@ export default function Home() {
             <textarea
               value={userInput}
               onChange={handleUserInput}
+              onInvalid={handleNewSearchInvalid}
               className={`pt-2 pl-1 h-14 text-black text-xl w-full rounded-lg resize-none bg-gray-light ${
-                !isFieldValid ? 'border-red-500' : ''
+                !isFieldValid ? 'border-red-500' : 'Por favor, preencha o campo antes de pesquisar.'
               }`}
               required
             />
