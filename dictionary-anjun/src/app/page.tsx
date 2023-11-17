@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <ThemeProvider attribute="class">
       <main className="h-full min-h-screen bg-white dark:bg-black">
-        <div className="bg-white dark:bg-black flex flex-col items-center justify-between py-10 px-80">
+        <div className="bg-white dark:bg-black flex flex-col items-center justify-between py-10 xs:px-0 sm:px-2 md:px-10 lg:px-80">
           <div className="w-full items-center justify-between font-mono flex">
             <div>
               <img
@@ -77,7 +77,7 @@ export default function Home() {
             </div>
           </div>
 
-          <form className="relative w-full mx-5 my-10">
+          <form className="relative w-full xs:px-0 sm:px-2 md:px-10 lg:px-5 my-10">
             <textarea
               value={userInput}
               onChange={handleUserInput}
