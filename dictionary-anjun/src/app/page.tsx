@@ -5,11 +5,29 @@ import { useState } from 'react';
 import '../app/globals.css';
 import { Button } from './Button';
 
+interface Definition {
+  definition: string;
+}
+
+interface Meaning {
+  partOfSpeech: string;
+  definitions: Definition[];
+}
+
+interface ApiDataItem {
+  word: string;
+  meanings: Meaning[];
+}
+
+export interface ApiData {
+  0: ApiDataItem;
+}
+
 export default function Home() {
 
   const [userInput, setUserInput] = useState('');
     const [isFieldValid, setIsFieldValid] = useState(true);
-    const [apiData, setApiData] = useState(null);
+    const [apiData, setApiData] = useState<ApiData | null>(null);
 
     const handleUserInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setUserInput(event.target.value);
@@ -105,7 +123,7 @@ export default function Home() {
                 <div className='mt-10'>
                   <span className='text-base text-bold text-gray'>Synonyms</span>
                   <span className='ml-4	text-base text-bold text-purple'>
-                    {apiData && apiData[0].meanings[0].synonyms[0]}
+                    {apiData[0]?.meanings[0]?.synonyms}
                   </span>
                 </div>
               </>
