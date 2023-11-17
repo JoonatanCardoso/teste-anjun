@@ -1,11 +1,19 @@
-import { useTheme } from "next-themes";
-import styles from "./Button.module.css";
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import styles from './Button.module.css';
 
 export function Button () {
-
-    const { systemTheme, theme, setTheme } = useTheme();
-    const currentTheme = theme === 'system' ? systemTheme : theme;
-
+    const { systemTheme, theme: nextTheme, setTheme } = useTheme();
+    const [theme, setLocalTheme] = useState(nextTheme);
+  
+    useEffect(() => {
+      setLocalTheme(nextTheme);
+    }, [nextTheme]);
+  
+    const handleClick = () => {
+      setTheme(theme === 'dark' ? 'light' : 'dark');
+    };
+  
 
     return (
         <>
@@ -17,6 +25,19 @@ export function Button () {
                 />
                 <span className={styles.slider} />
             </label>
+            {theme === 'dark' ? (
+                <img
+                className="pl-5 w-12"
+                src="sun.svg"
+                alt="Theme Light"
+                />
+                ) : (
+                <img
+                  className="pl-5 w-12"
+                  src="moon.svg"
+                  alt="Theme Dark"
+                />
+            )}
         </>
     )
 }
