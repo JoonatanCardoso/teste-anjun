@@ -59,7 +59,7 @@ export default function Home() {
 
           <div className='mt-10'>
             <span className='text-base text-bold text-gray'>Synonyms</span>
-            <span className='ml-4	text-sm text-bold text-purble'>Electronic</span>
+            <span className='ml-4	text-sm text-bold text-purple'>Electronic</span>
           </div>
         </div>
       </div>
