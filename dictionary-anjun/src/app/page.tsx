@@ -6,23 +6,28 @@ import '../app/globals.css';
 import { Button } from './Button';
 
 export default function Home() {
+
   const [userInput, setUserInput] = useState('');
-  const [isFieldValid, setIsFieldValid] = useState(true);
-  const [apiData, setApiData] = useState(null);
+    const [isFieldValid, setIsFieldValid] = useState(true);
+    const [apiData, setApiData] = useState(null);
 
-  const handleUserInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setUserInput(event.target.value);
-    setIsFieldValid(event.target.value.trim() !== '');
-  };
+    const handleUserInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setUserInput(event.target.value);
+      setIsFieldValid(event.target.value.trim() !== '');
+    };
 
-  const handleIconClick = async () => {
-    if (isFieldValid) {
+    const handleIconClick = async () => {
+      if (!isFieldValid) {
+        alert('Por favor, preencha o campo antes de pesquisar.');
+        return;
+      }
+
       try {
         const response = await fetch(
           `https://api.dictionaryapi.dev/api/v2/entries/en/${userInput}`
         );
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('A resposta da rede não foi boa.');
         }
 
         const data = await response.json();
@@ -31,8 +36,7 @@ export default function Home() {
         console.error('Error fetching data:', err);
         setApiData(null);
       }
-    }
-  };
+    };
 
   return (
     <ThemeProvider attribute="class">
